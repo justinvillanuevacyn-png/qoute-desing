@@ -1,0 +1,8 @@
+import qrcode
+
+# Replace this with your actual link
+link = "https://me-qr.com/?bannerid=6695237687&gclsrc=aw.ds&gad_source=1&gad_campaignid=21682440123&gbraid=0AAAAADpot12UiYfPEfod70GPLoai3PXLg&gclid=Cj0KCQiAtfXMBhDzARIsAJ0jp3BNrb0j1c12U3q-K2vqdpV7m0-Sn6fJvGnpkzKfJK5gkF4_yhlPfIcaAmuBEALw_wcB"
+
+# Generate and save
+img = qrcode.make(link)
+img.save("website_qr.png")
