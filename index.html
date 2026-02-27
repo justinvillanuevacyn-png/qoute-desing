@@ -13,14 +13,13 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* Using a fixed background for mobile performance */
             background: linear-gradient(180deg, #bae6fd 0%, #38bdf8 100%);
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
             position: relative;
         }
 
-        /* VIVID VISIBLE CLOUDS */
+        /* CLOUDS */
         .cloud-container {
             position: absolute;
             width: 100%;
@@ -33,10 +32,10 @@
         .cloud {
             position: absolute;
             background: #ffffff;
-            width: clamp(100px, 20vw, 150px); /* Responsive cloud width */
+            width: 120px;
             height: 40px;
             border-radius: 50px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0.8;
             animation: moveClouds linear infinite;
         }
 
@@ -51,7 +50,7 @@
         .cloud::before { width: 40px; height: 40px; top: -20px; left: 60px; }
 
         .c1 { top: 10%; animation-duration: 15s; }
-        .c2 { top: 30%; animation-duration: 25s; opacity: 0.7; }
+        .c2 { top: 30%; animation-duration: 25s; }
         .c3 { top: 75%; animation-duration: 20s; }
 
         @keyframes moveClouds {
@@ -59,47 +58,77 @@
             to { left: 100vw; }
         }
 
-        /* THE DESIGN CARD - Responsive Width */
+        /* THE DESIGN CARD - Flex Layout */
         .quote-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
             border: 3px solid #ffffff;
             border-radius: 25px;
-            padding: clamp(20px, 8vw, 50px); /* Padding shrinks on mobile */
-            width: 85%; /* Fits perfectly on small screens */
-            max-width: 500px;
-            text-align: center;
+            padding: 20px;
+            width: 90%; 
+            max-width: 600px;
+            display: flex; /* Side by side */
+            align-items: center;
+            gap: 15px;
             box-shadow: 0 20px 40px rgba(0, 75, 150, 0.2);
             z-index: 10;
             animation: floatCard 4s ease-in-out infinite;
         }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        /* IMAGE STYLING */
+        .character-img {
+            width: 40%; /* Relative width for mobile */
+            max-width: 200px;
+            height: auto;
+            border-radius: 15px;
+            object-fit: contain;
+            border-radius:20% ;
         }
 
-        /* TEXT STYLING - Using Clamp for Font Size */
+        /* CONTENT STYLING */
+        .quote-content {
+            flex: 1;
+            text-align: left;
+        }
+
         .quote-text {
             font-family: 'Caveat', cursive;
-            /* Minimum 1.8rem, grows to 2.8rem based on screen width */
-            font-size: clamp(1.8rem, 6vw, 2.8rem); 
-            color: #0f172a;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 4.5vw, 2.2rem); 
+            color: #11192c;
+            line-height: 1.1;
+            margin-bottom: 10px;
             display: block;
+            margin:auto ;
         }
 
         .author {
             color: #0369a1;
             text-transform: uppercase;
-            letter-spacing: clamp(2px, 1vw, 5px);
-            font-size: clamp(0.7rem, 3vw, 0.9rem);
+            letter-spacing: 2px;
+            font-size: 0.7rem;
             font-weight: 800;
+           text-align: right;
+            
+            
         }
 
-        /* HEART & FLOWER POPUPS */
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 400px) {
+            .quote-card {
+                flex-direction: column; /* Stack if the screen is too narrow */
+                text-align: center;
+            }
+            .character-img { width: 60%; }
+            .quote-content { text-align: center; }
+        }
+
+        /* EMOJI EFFECTS */
         .emoji-pop {
             position: absolute;
             font-size: 1.5rem;
@@ -124,10 +153,14 @@
     </div>
 
     <div class="quote-card" id="card">
-        <span class="quote-text">
-            “Make your character so good that the blind man can see your kindness and a deaf man can hear your kind words.”
-        </span>
-        <span class="author">— Asti</span>
+        <img src="will.jpg.jpg" alt="Character" class="character-img">
+        
+        <div class="quote-content">
+            <span class="quote-text">
+                “Make your character so good that the blind man can see your kindness and a deaf man can hear your kind words.”
+            </span>
+            <span class="author">— Asti</span>
+        </div>
     </div>
 
     <script>
@@ -139,21 +172,17 @@
                 const span = document.createElement('span');
                 span.className = 'emoji-pop';
                 span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                
                 const tx = (Math.random() - 0.5) * 200 + 'px';
                 const ty = (Math.random() - 0.5) * 200 + 'px';
                 span.style.setProperty('--tx', tx);
                 span.style.setProperty('--ty', ty);
-                
                 span.style.left = x + 'px';
                 span.style.top = y + 'px';
-                
                 document.body.appendChild(span);
                 setTimeout(() => span.remove(), 2000);
             }
         }
 
-        // Works for both Mouse and Touch
         card.addEventListener('mousedown', (e) => createPop(e.clientX, e.clientY));
         card.addEventListener('touchstart', (e) => {
             const touch = e.touches[0];
