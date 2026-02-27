@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asti Quote - Mobile Friendly</title>
+    <title>Asti Quote - Clean Layout</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,30 +28,26 @@
             left: 0;
             z-index: 1;
         }
-
         .cloud {
             position: absolute;
             background: #ffffff;
-            width: clamp(100px, 20vw, 150px);
+            width: 120px;
             height: 40px;
             border-radius: 50px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             animation: moveClouds linear infinite;
         }
-
         .cloud::after, .cloud::before {
             content: '';
             position: absolute;
             background: #ffffff;
             border-radius: 50%;
         }
-
         .cloud::after { width: 60px; height: 60px; top: -30px; left: 15px; }
         .cloud::before { width: 40px; height: 40px; top: -20px; left: 60px; }
-
-        .c1 { top: 10%; animation-duration: 15s; }
-        .c2 { top: 30%; animation-duration: 25s; opacity: 0.7; }
-        .c3 { top: 75%; animation-duration: 20s; }
+        .c1 { top: 15%; animation-duration: 18s; }
+        .c2 { top: 40%; animation-duration: 28s; opacity: 0.6; }
+        .c3 { top: 70%; animation-duration: 22s; }
 
         @keyframes moveClouds {
             from { left: -150px; }
@@ -61,58 +57,55 @@
         /* THE DESIGN CARD */
         .quote-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             border: 3px solid #ffffff;
-            border-radius: 25px;
-            padding: clamp(20px, 8vw, 50px);
-            width: 85%;
-            max-width: 500px;
-            box-shadow: 0 20px 40px rgba(0, 75, 150, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0, 75, 150, 0.15);
             z-index: 10;
-            animation: floatCard 4s ease-in-out infinite;
+            animation: float 5s ease-in-out infinite;
         }
 
-        @keyframes floatCard {
+        @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-20px); }
         }
 
+        /* TEXT STYLING */
         .quote-text {
             font-family: 'Caveat', cursive;
-            font-size: clamp(1.8rem, 6vw, 2.8rem); 
-            color: #0f172a;
+            font-size: clamp(1.8rem, 7vw, 2.5rem); 
+            color: #1e293b;
             line-height: 1.2;
-            margin-bottom: 20px;
+            text-align: center;
             display: block;
-            text-align: center; /* Quote remains centered */
+            margin-bottom: 25px;
         }
 
-        /* UPDATED AUTHOR STYLING */
         .author {
-            display: block;        /* Takes up the full width */
-            text-align: right;     /* Pushes text to the right side */
-            color: #0369a1;
+            display: block;
+            text-align: right;
+            color: #0284c7;
             text-transform: uppercase;
-            letter-spacing: clamp(2px, 1vw, 5px);
-            font-size: clamp(0.7rem, 3vw, 0.9rem);
+            letter-spacing: 3px;
+            font-size: 0.8rem;
             font-weight: 800;
-            margin-top: 10px;
         }
 
-        /* EMOJI POPUPS */
+        /* CLICK EFFECTS */
         .emoji-pop {
             position: absolute;
-            font-size: 1.5rem;
             pointer-events: none;
             z-index: 100;
-            animation: burst 2s ease-out forwards;
+            animation: burst 1.5s ease-out forwards;
         }
-
         @keyframes burst {
             0% { transform: translate(0,0) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) rotate(180deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(90deg); opacity: 0; }
         }
     </style>
 </head>
@@ -120,8 +113,8 @@
 
     <div class="cloud-container">
         <div class="cloud c1"></div>
-        <div class="cloud c2" style="animation-delay: -5s;"></div>
-        <div class="cloud c3" style="animation-delay: -10s;"></div>
+        <div class="cloud c2" style="animation-delay: -7s;"></div>
+        <div class="cloud c3" style="animation-delay: -12s;"></div>
     </div>
 
     <div class="quote-card" id="card">
@@ -133,21 +126,24 @@
 
     <script>
         const card = document.getElementById('card');
-        const emojis = ['❤️', '🌸', '🌼', '✨'];
+        const emojis = ['✨', '☁️', '🤍', '🌸'];
 
         function createPop(x, y) {
-            for(let i = 0; i < 5; i++) {
+            for(let i = 0; i < 6; i++) {
                 const span = document.createElement('span');
                 span.className = 'emoji-pop';
                 span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                const tx = (Math.random() - 0.5) * 200 + 'px';
-                const ty = (Math.random() - 0.5) * 200 + 'px';
+                
+                const tx = (Math.random() - 0.5) * 250 + 'px';
+                const ty = (Math.random() - 0.5) * 250 + 'px';
                 span.style.setProperty('--tx', tx);
                 span.style.setProperty('--ty', ty);
+                
                 span.style.left = x + 'px';
                 span.style.top = y + 'px';
+                
                 document.body.appendChild(span);
-                setTimeout(() => span.remove(), 2000);
+                setTimeout(() => span.remove(), 1500);
             }
         }
 
