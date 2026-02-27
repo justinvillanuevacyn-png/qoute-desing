@@ -32,10 +32,10 @@
         .cloud {
             position: absolute;
             background: #ffffff;
-            width: 120px;
+            width: clamp(100px, 20vw, 150px);
             height: 40px;
             border-radius: 50px;
-            opacity: 0.8;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             animation: moveClouds linear infinite;
         }
 
@@ -50,7 +50,7 @@
         .cloud::before { width: 40px; height: 40px; top: -20px; left: 60px; }
 
         .c1 { top: 10%; animation-duration: 15s; }
-        .c2 { top: 30%; animation-duration: 25s; }
+        .c2 { top: 30%; animation-duration: 25s; opacity: 0.7; }
         .c3 { top: 75%; animation-duration: 20s; }
 
         @keyframes moveClouds {
@@ -58,77 +58,49 @@
             to { left: 100vw; }
         }
 
-        /* THE DESIGN CARD - Flex Layout */
+        /* THE DESIGN CARD */
         .quote-card {
             position: relative;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
             border: 3px solid #ffffff;
             border-radius: 25px;
-            padding: 20px;
-            width: 90%; 
-            max-width: 600px;
-            display: flex; /* Side by side */
-            align-items: center;
-            gap: 15px;
+            padding: clamp(20px, 8vw, 50px);
+            width: 85%;
+            max-width: 500px;
             box-shadow: 0 20px 40px rgba(0, 75, 150, 0.2);
             z-index: 10;
             animation: floatCard 4s ease-in-out infinite;
         }
 
-        /* IMAGE STYLING */
-        .character-img {
-            width: 40%; /* Relative width for mobile */
-            max-width: 200px;
-            height: auto;
-            border-radius: 15px;
-            object-fit: contain;
-            border-radius:20% ;
-        }
-
-        /* CONTENT STYLING */
-        .quote-content {
-            flex: 1;
-            text-align: left;
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         .quote-text {
             font-family: 'Caveat', cursive;
-            font-size: clamp(1.2rem, 4.5vw, 2.2rem); 
-            color: #11192c;
-            line-height: 1.1;
-            margin-bottom: 10px;
+            font-size: clamp(1.8rem, 6vw, 2.8rem); 
+            color: #0f172a;
+            line-height: 1.2;
+            margin-bottom: 20px;
             display: block;
-            margin:auto ;
+            text-align: center; /* Quote remains centered */
         }
 
+        /* UPDATED AUTHOR STYLING */
         .author {
+            display: block;        /* Takes up the full width */
+            text-align: right;     /* Pushes text to the right side */
             color: #0369a1;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.7rem;
+            letter-spacing: clamp(2px, 1vw, 5px);
+            font-size: clamp(0.7rem, 3vw, 0.9rem);
             font-weight: 800;
-           text-align: right;
-            
-            
+            margin-top: 10px;
         }
 
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* MOBILE OPTIMIZATION */
-        @media (max-width: 400px) {
-            .quote-card {
-                flex-direction: column; /* Stack if the screen is too narrow */
-                text-align: center;
-            }
-            .character-img { width: 60%; }
-            .quote-content { text-align: center; }
-        }
-
-        /* EMOJI EFFECTS */
+        /* EMOJI POPUPS */
         .emoji-pop {
             position: absolute;
             font-size: 1.5rem;
@@ -153,14 +125,10 @@
     </div>
 
     <div class="quote-card" id="card">
-        <img src="will.jpg.jpg" alt="Character" class="character-img">
-        
-        <div class="quote-content">
-            <span class="quote-text">
-                “Make your character so good that the blind man can see your kindness and a deaf man can hear your kind words.”
-            </span>
-            <span class="author">— Asti</span>
-        </div>
+        <span class="quote-text">
+            “Make your character so good that the blind man can see your kindness and a deaf man can hear your kind words.”
+        </span>
+        <span class="author">— Asti</span>
     </div>
 
     <script>
